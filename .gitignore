@@ -1,0 +1,38 @@
+# Fichier .gitignore pour le backend Django
+
+# Fichier des variables d'environnement (CONTIENT DES SECRETS !)
+.env
+
+# Base de données SQLite locale
+db.sqlite3
+db.sqlite3-journal
+
+# Dossiers pour les fichiers statiques collectés et les uploads temporaires locaux
+# Ces fichiers sont générés ou temporaires et ne doivent pas être versionnés.
+staticfiles_build/
+media_temp_uploads/
+
+# Environnement virtuel Python
+venv/
+*/venv/  # Au cas où il serait dans un sous-dossier
+env/
+*/env/
+
+# Fichiers compilés Python et caches
+*.pyc
+__pycache__/
+*.pyo
+*.pyd
+.Python
+
+# Fichiers de log
+*.log
+logs/
+
+# Fichiers d'IDE et système (exemples)
+.idea/
+.vscode/
+*.swp
+*~
+.DS_Store
+Thumbs.db
