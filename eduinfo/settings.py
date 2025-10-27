@@ -68,15 +68,25 @@ WSGI_APPLICATION = 'eduinfo.wsgi.application'
 # En production, la plateforme de déploiement fournira une DATABASE_URL
 # que dj_database_url (si tu l'installes) peut lire.
 # Pour l'instant, cette config est OK pour le local.
-import dj_database_url # Importe-le si tu l'as installé (pip install dj_database_url)
-DATABASES = {
-    # Tente de lire DATABASE_URL depuis .env (ou variables d'environnement système)
-    # Si non trouvé, utilise SQLite par défaut.
-    'default': dj_database_url.config(
-        default=f"sqlite:///{BASE_DIR / 'db.sqlite3'}",
-        conn_max_age=600 # Optionnel: durée de vie des connexions
-    )
-}
+import dj_database_url
+from urllib.parse import urlparse
+
+db_from_env = dj_database_url.config(conn_max_age=600)
+
+if db_from_env:
+    DATABASES = {'default': db_from_env}
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'NAME': 'railway',
+            'USER': 'root',
+            'PASSWORD': 'motdepasse',
+            'HOST': 'containers-us-west-xx.railway.app',
+            'PORT': '3306',
+        }
+    }
+
 
 
 LANGUAGE_CODE = 'fr-fr'
